@@ -15,6 +15,7 @@ body {
 h1 {
   text-align: center;
   font-size: 30pt;
+  margin-top: 2rem;
 }
 
 h1,
@@ -28,23 +29,25 @@ h2 {
   max-width: 1000px;
   margin: 5rem auto 5rem auto;
   height: 100%;
+  text-align: center;
 }
 
 /* Estilização da página home */
 .container-primary img {
-  width: 400px;
-  margin: 5rem 0 6rem 0;
+  width: 350px;
+  margin: 1rem 0 4rem 0;
 }
 
 .button-home {
   background-color: #dfdfdf;
   color: #6d33f5;
-  font-size: large;
+  font-size: larger;
+  font-weight: bold;
   width: 200px;
   height: 50px;
   margin: 5px;
   border-radius: 5px;
-  border-style: none;
+  border: 1px solid white;
   transition: .5s;
 }
 
@@ -68,6 +71,7 @@ h2 {
   backdrop-filter: blur(3.3px);
   -webkit-backdrop-filter: blur(3.3px);
   padding: 20px;
+  text-align: left;
 }
 
 .container-form input {
@@ -150,4 +154,29 @@ h2 {
   padding: 10px 0 10px 0;
   text-align: center;
   margin-top: 290px;
+}
+
+/* Tabela */
+
+table {
+  text-align: right;
+  border: 2px solid #dfdfdf;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+td {
+  text-align: right;
+}
+
+.button-table {
+  background-color: #8257e6;
+  color: #dfdfdf;
+  font-size: medium;
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 5px;
+  border-style: none;
+  margin: right;
 }

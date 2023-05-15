@@ -47,13 +47,25 @@ def clientes():
   clientes = Cliente.query.all()
   return render_template('clientes.html', clientes=clientes)
 
-@app.route('/sobre')
-def sobre():
-  return render_template('sobre.html')
+@app.route('/sobre/<int:id>')
+def sobre(id):
+  cliente = Cliente.query.get(id)
+  return render_template('sobre.html', cliente=cliente)
 
-@app.route('/alteracao')
-def alteracao():
-  return render_template('alteracao.html')
+@app.route('/alteracao/<int:id>')
+def alteracao(id):
+  cliente = Cliente.query.get(id)
+  return render_template('alteracao.html', cliente=cliente)
+
+# @app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
+# def alteracao(id):
+#   cliente = Cliente.query.get(id)
+#   if cliente:
+#     db.session.delete(cliente)
+#     db.session.commit()
+#     return redirect(url_for('clientes'))
+#   else:
+#     return render_template('clientes.html')
 
 if __name__ == '__main__':
   with app.app_context():
