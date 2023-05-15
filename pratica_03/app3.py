@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+# Configuração do banco de dados SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
 db = SQLAlchemy(app)
 
+# Definição do modelo do cliente
 class Cliente(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String(100))
@@ -14,31 +16,25 @@ class Cliente(db.Model):
   email = db.Column(db.String(100))
   telefone = db.Column(db.String(20))
 
-# from routes.alteracao import alteracao
-# from routes.cadastro import cadastro
-# from routes.clientes import clientes
-# from routes.sobre import sobre
-
-# app.register_blueprint(alteracao)
-# app.register_blueprint(cadastro)
-# app.register_blueprint(clientes)
-# app.register_blueprint(sobre)
-
 @app.route('/')
 def index():
   return render_template('index.html')
 
+# Rota para a página de cadastro de clientes
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
   if request.method == 'POST':
+    # Obtém os dados do formulário
     nome = request.form['nome']
     cpf = request.form['cpf']
     email = request.form['email']
     telefone = request.form['telefone']
     nascimento = request.form['nascimento']
 
+    # Cria uma instância do cliente
     cliente = Cliente(nome=nome, email=email, telefone=telefone, cpf=cpf, nascimento=nascimento)
 
+    # Adiciona o cliente ao banco de dados
     db.session.add(cliente)
     db.session.commit()
 
@@ -46,7 +42,7 @@ def cadastro():
   else:
     return render_template('cadastro.html')
 
-
+# Rota para a página de clientes cadastrados
 @app.route('/clientes')
 def clientes():
   clientes = Cliente.query.all()
@@ -62,5 +58,6 @@ def alteracao():
 
 if __name__ == '__main__':
   with app.app_context():
+    # Cria o banco de dados e inicia o servidor Flask
     db.create_all()
     app.run(debug=True)
