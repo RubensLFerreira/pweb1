@@ -14,16 +14,6 @@ class Cliente(db.Model):
   email = db.Column(db.String(100))
   telefone = db.Column(db.String(20))
 
-# from routes.alteracao import alteracao
-# from routes.cadastro import cadastro
-# from routes.clientes import clientes
-# from routes.sobre import sobre
-
-# app.register_blueprint(alteracao)
-# app.register_blueprint(cadastro)
-# app.register_blueprint(clientes)
-# app.register_blueprint(sobre)
-
 @app.route('/')
 def index():
   return render_template('index.html')
@@ -37,7 +27,13 @@ def cadastro():
     telefone = request.form['telefone']
     nascimento = request.form['nascimento']
 
-    cliente = Cliente(nome=nome, email=email, telefone=telefone, cpf=cpf, nascimento=nascimento)
+    cliente = Cliente(
+      nome=nome,
+      email=email,
+      telefone=telefone,
+      cpf=cpf,
+      nascimento=nascimento
+    )
 
     db.session.add(cliente)
     db.session.commit()
@@ -45,7 +41,6 @@ def cadastro():
     return redirect(url_for('clientes'))
   else:
     return render_template('cadastro.html')
-
 
 @app.route('/clientes')
 def clientes():
