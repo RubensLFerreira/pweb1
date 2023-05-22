@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+
+# Criando o banco
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
 db = SQLAlchemy(app)
 
@@ -14,10 +16,12 @@ class Cliente(db.Model):
   email = db.Column(db.String(100))
   telefone = db.Column(db.String(20))
 
+# Rota inicial
 @app.route('/')
 def index():
   return render_template('index.html')
 
+# Roda de cadastro
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
   if request.method == 'POST':
@@ -42,30 +46,49 @@ def cadastro():
   else:
     return render_template('cadastro.html')
 
+# Rota de clientes
 @app.route('/clientes')
 def clientes():
   clientes = Cliente.query.all()
   return render_template('clientes.html', clientes=clientes)
 
+# SObre o cliente
 @app.route('/sobre/<int:id>')
 def sobre(id):
   cliente = Cliente.query.get(id)
   return render_template('sobre.html', cliente=cliente)
 
+# Alterar ou excluir cliente
 @app.route('/alteracao/<int:id>')
 def alteracao(id):
   cliente = Cliente.query.get(id)
   return render_template('alteracao.html', cliente=cliente)
 
-# @app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
-# def alteracao(id):
-#   cliente = Cliente.query.get(id)
-#   if cliente:
-#     db.session.delete(cliente)
-#     db.session.commit()
-#     return redirect(url_for('clientes'))
-#   else:
-#     return render_template('clientes.html')
+# Editar cliente
+@app.route('/alteracao/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    cliente = Cliente.query.get(id)
+    if request.method == 'POST':
+        cliente.nome = request.form['nome']
+        cliente.cpf = request.form['cpf']
+        cliente.email = request.form['email']
+        cliente.telefone = request.form['telefone']
+        cliente.nascimento = request.form['nascimento']
+        db.session.commit()
+        return redirect(url_for('clientes'))
+    else:
+        return render_template('editar.html', cliente=cliente)
+
+# Excluir o cliente
+@app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
+def excluir(id):
+  cliente = Cliente.query.get(id)
+  if cliente:
+    db.session.delete(cliente)
+    db.session.commit()
+    return redirect(url_for('clientes'))
+  else:
+    return render_template('clientes.html')
 
 if __name__ == '__main__':
   with app.app_context():

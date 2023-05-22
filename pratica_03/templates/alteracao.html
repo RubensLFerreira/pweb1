@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -37,10 +37,14 @@
             <td>{{ cliente.email }}</td>
             <td>{{ cliente.telefone }}</td>
             <td>
-              <button class="button-table" type="submit">Editar</button>
+              <a href="/alteracao/editar/{{cliente.id}}"
+                ><button class="button-table">Editar</button></a
+              >
             </td>
             <td>
-              <button class="button-table" type="submit">Excluir</button>
+              <a href="/alteracao/excluir/{{cliente.id}}"
+                ><button class="button-table">Excluir</button></a
+              >
             </td>
           </tr>
         </tbody>
