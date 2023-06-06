@@ -18,7 +18,7 @@ def index():
   return render_template('index.html')
 
 # Roda de cadastro
-@app.route('/cadastro', methods=['GET', 'POST'])
+@app.route('/adicionar-tarefa', methods=['GET', 'POST'])
 def cadastro():
   if request.method == 'POST':
     nome = request.form['nome']
@@ -35,7 +35,7 @@ def cadastro():
     return render_template('cadastro.html')
 
 # Rota de clientes
-@app.route('/clientes')
+@app.route('/lista-tarefas')
 def clientes():
   clientes = Cliente.query.all()
   return render_template('clientes.html', clientes=clientes)
