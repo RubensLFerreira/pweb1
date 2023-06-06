@@ -47,10 +47,10 @@ def sobre(id):
   return render_template('sobre.html', cliente=cliente)
 
 # Alterar ou excluir cliente
-@app.route('/alteracao/<int:id>')
+@app.route('/concluidas/<int:id>')
 def alteracao(id):
   cliente = Cliente.query.get(id)
-  return render_template('alteracao.html', cliente=cliente)
+  return render_template('concluidas.html', cliente=cliente)
 
 # Editar cliente
 @app.route('/alteracao/editar/<int:id>', methods=['GET', 'POST'])
