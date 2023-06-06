@@ -5,17 +5,21 @@ app = Flask(__name__)
 
 
 # Criando o banco
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tarefas.db'
 db = SQLAlchemy(app)
 
-class Cliente(db.Model):
+
+class Tarefa(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String(100))
+  status = db.Column(db.Boolean, default=False)
+
 
 # Rota inicial
 @app.route('/')
 def index():
   return render_template('index.html')
+
 
 # Roda de cadastro
 @app.route('/adicionar-tarefa', methods=['GET', 'POST'])
@@ -23,56 +27,50 @@ def cadastro():
   if request.method == 'POST':
     nome = request.form['nome']
 
-    cliente = Cliente(
-      nome=nome,
+    tarefa = Tarefa(
+        nome=nome,
     )
 
-    db.session.add(cliente)
+    db.session.add(tarefa)
     db.session.commit()
 
-    return redirect(url_for('clientes'))
+    return redirect(url_for('tarefas'))
   else:
     return render_template('cadastro.html')
 
-# Rota de clientes
-@app.route('/lista-tarefas')
-def clientes():
-  clientes = Cliente.query.all()
-  return render_template('clientes.html', clientes=clientes)
 
-# SObre o cliente
-@app.route('/sobre/<int:id>')
-def sobre(id):
-  cliente = Cliente.query.get(id)
-  return render_template('sobre.html', cliente=cliente)
+# Rota de tarefas
+@app.route('/lista-tarefas-pendentes')
+def tarefas():
+  tarefas = Tarefa.query.filter(Tarefa.status == False).all()
+  return render_template('tarefas.html', tarefas=tarefas)
+
+
+@app.route('/lista-tarefas-concluidas')
+def concluidas():
+  tarefas = Tarefa.query.filter(Tarefa.status == True).all()
+  return render_template('concluidas.html', tarefas=tarefas)
+
 
 # Alterar ou excluir cliente
 @app.route('/concluidas/<int:id>')
-def concluidas(id):
-  cliente = Cliente.query.get(id)
-  return render_template('concluidas.html', cliente=cliente)
+def concluidasId(id):
+  tarefa = Tarefa.query.get(id)
+  if tarefa:
+    tarefa.status = True
+    db.session.commit()
+    return redirect(url_for('tarefas'))
 
-# Editar cliente
-@app.route('/alteracao/editar/<int:id>', methods=['GET', 'POST'])
-def editar(id):
-    cliente = Cliente.query.get(id)
-    if request.method == 'POST':
-        cliente.nome = request.form['nome']
-        db.session.commit()
-        return redirect(url_for('clientes'))
-    else:
-        return render_template('editar.html', cliente=cliente)
 
 # Excluir o cliente
 @app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
 def excluir(id):
-  cliente = Cliente.query.get(id)
-  if cliente:
-    db.session.delete(cliente)
+  tarefa = Tarefa.query.get(id)
+  if tarefa:
+    db.session.delete(tarefa)
     db.session.commit()
-    return redirect(url_for('clientes'))
-  else:
-    return render_template('clientes.html')
+    return redirect(url_for('concluidas'))
+
 
 if __name__ == '__main__':
   with app.app_context():

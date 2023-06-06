@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,32 +8,39 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-    <title>Tarefas concluídas</title>
+    <title>Tarefas</title>
   </head>
   <body>
     {% include 'includes/navbar.html' %}
     <div class="container-primary">
-      <h1>Tarefas concluídas</h1>
+      <h1>Tarefas pendentes</h1>
 
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tarefa</th>
+            <th>Tarefas</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
+          {% for tarefa in tarefas %}
           <tr>
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nome }}</td>
+            <td>{{ tarefa.id }}</td>
+            <td>{{ tarefa.nome }}</td>
             <td>
-              <a href="/alteracao/{{cliente.id}}"
-                ><button class="button-table">Alterar</button></a
+              <a href="/concluidas/{{tarefa.id}}"
+                ><button class="button-table">Concluir</button></a
+              >
+            </td>
+            <td>
+              <a href="/alteracao/excluir/{{tarefa.id}}"
+                ><button class="button-table">Excluir</button></a
               >
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

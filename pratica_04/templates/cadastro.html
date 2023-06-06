@@ -8,12 +8,12 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-    <title>Cadastro</title>
+    <title>Criar tarefa</title>
   </head>
   <body>
     {% include 'includes/navbar.html' %}
     <div class="container-primary">
-      <h1>Formulário de cadastro</h1>
+      <h1>Criar tarefa</h1>
       <div class="container-form">
         <form method="POST" action="/adicionar-tarefa" class="form">
           <label for="nome">Titulo da tarefa:</label>

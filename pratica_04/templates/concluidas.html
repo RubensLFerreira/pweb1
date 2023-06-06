@@ -19,21 +19,22 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tarefa</th>
-            <th></th>
+            <th>Tarefas</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
+          {% for tarefa in tarefas %}
           <tr>
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nome }}</td>
+            <td>{{ tarefa.id }}</td>
+            <td>{{ tarefa.nome }}</td>
             <td>
-              <a href="/alteracao/excluir/{{cliente.id}}"
+              <a href="/alteracao/excluir/{{tarefa.id}}"
                 ><button class="button-table">Excluir</button></a
               >
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
