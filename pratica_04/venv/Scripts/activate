@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Aluno\Desktop\pratica_04\venv"
+VIRTUAL_ENV="C:\Users\Aluno\Desktop\pweb1\pratica_04\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

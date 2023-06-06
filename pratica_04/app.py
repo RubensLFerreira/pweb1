@@ -11,10 +11,6 @@ db = SQLAlchemy(app)
 class Cliente(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String(100))
-  cpf = db.Column(db.String(11))
-  nascimento = db.Column(db.String(11))
-  email = db.Column(db.String(100))
-  telefone = db.Column(db.String(20))
 
 # Rota inicial
 @app.route('/')
@@ -26,17 +22,9 @@ def index():
 def cadastro():
   if request.method == 'POST':
     nome = request.form['nome']
-    cpf = request.form['cpf']
-    email = request.form['email']
-    telefone = request.form['telefone']
-    nascimento = request.form['nascimento']
 
     cliente = Cliente(
       nome=nome,
-      email=email,
-      telefone=telefone,
-      cpf=cpf,
-      nascimento=nascimento
     )
 
     db.session.add(cliente)
@@ -70,10 +58,6 @@ def editar(id):
     cliente = Cliente.query.get(id)
     if request.method == 'POST':
         cliente.nome = request.form['nome']
-        cliente.cpf = request.form['cpf']
-        cliente.email = request.form['email']
-        cliente.telefone = request.form['telefone']
-        cliente.nascimento = request.form['nascimento']
         db.session.commit()
         return redirect(url_for('clientes'))
     else:
