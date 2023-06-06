@@ -13,18 +13,18 @@
   <body>
     {% include 'includes/navbar.html' %}
     <div class="container-primary">
-      <h1>Lista de tarefas concluídas</h1>
+      <h1>Sobre</h1>
 
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tarefas</th>
+            <th>Tarefa</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {% for cliente in clientes %}
           <tr>
             <td>{{ cliente.id }}</td>
             <td>{{ cliente.nome }}</td>
@@ -34,7 +34,6 @@
               >
             </td>
           </tr>
-          {% endfor %}
         </tbody>
       </table>
     </div>
