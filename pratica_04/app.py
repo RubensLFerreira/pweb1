@@ -48,7 +48,7 @@ def sobre(id):
 
 # Alterar ou excluir cliente
 @app.route('/concluidas/<int:id>')
-def alteracao(id):
+def concluidas(id):
   cliente = Cliente.query.get(id)
   return render_template('concluidas.html', cliente=cliente)
 
