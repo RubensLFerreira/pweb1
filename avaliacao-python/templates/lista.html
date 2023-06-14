@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Lista</title>
+  </head>
+  <body style="background-color: #16191b; color: aliceblue">
+    {% include 'includes/navbar.html' %}
+
+    <div class="container">
+      <br /><br />
+      <h3 style="text-align: center">Lista de pets cadastrados</h3>
+      <br /><br />
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for pet in pets %}
+        <div class="col">
+          <div class="card text-bg-dark" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">Pet: {{ pet.nome }}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">
+                Dono: {{ pet.dono }}
+              </h6>
+              <p class="card-text">Raça: {{ pet.raca }}</p>
+              <p class="card-text">Porte: {{ pet.porte }}</p>
+              <p class="card-text">Peso: {{ pet.peso }}</p>
+              <p class="card-text">Sexo: {{ pet.sexo }}</p>
+
+              <a href="/editar/{{ pet.id }}" class="btn btn-outline-light"
+                ><i class="bi bi-pencil-square"></i
+              ></a>
+              <a href="/deletar/{{ pet.id }}" class="btn btn-outline-light"
+                ><i class="bi bi-trash"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% include 'includes/footer.html' %}
+  </body>
+</html>
